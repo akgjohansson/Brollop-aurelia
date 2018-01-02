@@ -1,0 +1,43 @@
+<template>
+  <div class="row" id="registration-text">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+      ${session.language==='swe'?'Fyll i formuläret nedan och känn dig välkommen!':'Please fill out the form below and consider
+      yourself welcome!'}
+    </div>
+  </div>
+  <div class="row" repeat.for="person of persons">
+    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10 registration-form">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <input type="text" value.bind="person.firstName" placeholder="${session.language==='swe'?'Förnamn':'First name'}" class="registration-input">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <input type="text" value.bind="person.lastName" placeholder="${session.language==='swe'?'Efternam':'Last name'}" class="registration-input">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <input type="text" value.bind="person.phone" placeholder="${session.language==='swe'?'Telefon':'Phone number'}" class="registration-input">
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" if.bind="persons.length>1">
+          <i class="fa fa-minus-circle"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <input type="text" value.bind="person.email" placeholder="${session.language==='swe'?'Epost':'E-mail'}" class="registration-input">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          ${session.language==='swe'?'Matpreferenser':'Food preferences'}: 
+          <select value.bind="person.newPreference" if.bind="showFoodPreferences">
+            <option repeat.for="pref of session.foodPreferences">${session.language==='swe'?pref.Swedish:pref.English}</option>
+            <option click.delegate="addFoodPreference()">${session.language==='swe'?'Annan, nämnligen...':'Other, namely...'}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" if.bind="showFoodPreferences">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          ${session.language==='swe'?'Valda matpreferenser':'Chosen food preferences'}: ${foodPreferenceList(person.foodPreferences)}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

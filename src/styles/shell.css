@@ -1,0 +1,95 @@
+h1 {
+  text-align: center;
+  font-size: 4.5vw;
+}
+
+h3 {
+  text-align: center;
+  font-size: 2.5vw;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.underscore {
+  text-decoration: underline;
+}
+
+.page-host-background {
+  bottom: 0;
+  display: block;
+  left: 0px;
+  overflow: hidden;
+  
+  position: relative;
+  right: 0;
+  /* top: 60px; */
+  background-image: url('../../img/Bild1.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.page-host-container{
+  padding: 10px;
+  background-color: rgb(216, 209, 209);
+  opacity: 0.8;
+  height: 100vh;
+}
+
+.page-host {
+  padding: 10px;
+  border-style: double;
+  border-width: 10px;
+  height: 100%;
+}
+
+.menuItem {
+  cursor: pointer;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-object {
+  margin: auto;
+}
+
+#title-container {
+  margin: auto;
+}
+
+.bottom-of-page {
+  bottom: 20px;
+  position: absolute;
+  width: 100%;
+}
+
+.flag {
+  width:30px;
+  /* height: 40px; */
+}
+
+.right-center-text {
+  text-align: right;
+}
+
+.left-center-text {
+  text-align: left;
+}
+
+#sweflag {
+  right: -10px;
+}
+
+#engflag {
+  right: 10px;
+}
+
+#contact-table {
+  width: 100%;
+  position: relative;
+  top:20px;
+}

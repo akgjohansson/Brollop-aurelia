@@ -1,0 +1,42 @@
+<template>
+  <form submit.trigger="login()">
+    <div class="row" if.bind="!administrator">
+      <div class.bind="adminClass">
+        <input type="password" value.bind="password">
+      </div>
+    </div>
+    <div class="row" if.bind="!administrator">
+      <div class.bind="adminClass">
+        <button click.delegate="login()">Logga in</button>
+      </div>
+    </div>
+  </form>
+  <div class="row" if.bind="administrator">
+    <div class.bind="adminClass">
+      <input type="text" placeholder="Namn" value.bind="name">
+    </div>
+  </div>
+  <div class="row" if.bind="administrator">
+    <div class.bind="adminClass">
+      <textarea placeholder="Svenska" value.bind="swedish"></textarea>
+    </div>
+  </div>
+  <div class="row" if.bind="administrator">
+    <div class.bind="adminClass">
+      <textarea placeholder="Engelska" value.bind="english"></textarea>
+    </div>
+  </div>
+  <div class="row" if.bind="administrator">
+    <div class.bind="adminClass">
+      <button click.delegate="sendInfo()">Skicka</button>
+    </div>
+  </div>
+  <div class="row" if.bind="administrator">
+    <div class.bind="adminClass">
+      <select value.bind="chosenInfoItem" change.delegate="getInfoItem()">
+        <option repeat.for="infoItem of session.infos">${infoItem.Name}</option>
+      </select>
+    </div>
+    ${chosenInfoItem}
+  </div>
+</template>

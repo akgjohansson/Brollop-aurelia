@@ -1,0 +1,5 @@
+scripts/
+.vscode/
+aurelia_project/
+node_modules/
+test/

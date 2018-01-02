@@ -1,0 +1,49 @@
+<template>
+  <div class="page-host-background">
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="page-host-container">
+          <div class="page-host" if.bind="session.menuItems && session.infos">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <img class="flag" src="../../img/swe.png" click.delegate="newLanguage('swe')">
+                <img class="flag" src="../../img/eng.png" click.delegate="newLanguage('eng')">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1 id="title-text">Johanna & Andreas</h1>
+                <div width="{Binding ActualWidth, ElementName=title-text}" style="border-width:10px; border-color:black;"></div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h3 class="right-center-text">19 maj 2018</h3>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <h3 class="left-center-text">${session.language==='swe'?'Dagar kvar':'Days left'}: ${session.remainingDays}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" repeat.for="menuItem of session.menuItems">
+                <i click.delegate="router.navigate(menuItem.Navigation)" class="menuItem ${menuItem.Navigation===router.currentInstruction.config.name?'underscore':''}">${session.language==='swe'?menuItem.Swedish:menuItem.English}</i>
+              </div>
+            </div>
+            <router-view></router-view>
+            <div class="row bottom-of-page">
+              <div class="hidden-xs hidden-md hidden-sm col-lg-12 center-text">
+                <i class="center-text clickable" click.delegate="router.navigate('admin')">Admin</i>
+              </div>
+            </div>
+          </div>
+          <div if.bind="!session.menuItems" class="pagehost row">
+            <div class="center-text">
+              ${session.language==='swe'?"Laddar innehåll":"Loading content"}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <compose view="./header.html"></compose> -->
+</template>
