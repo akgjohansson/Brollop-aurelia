@@ -26,6 +26,9 @@ export class Session {
     this.getInfos();
     this.contacts = [];
     this.getContacts();
+    this.foodPreferences = [];
+    this.getFoodPreferences();
+    this.registrationReceived = false;
   }
 
   getMenuItems() {
@@ -79,11 +82,66 @@ export class Session {
 
   getContacts() {
     this.http.fetch('contact')
-    .then(response =>{
-      return response.json();
-    }).then(data => {
-      this.contacts = data;
-    });
+      .then(response => {
+        return response.json();
+      }).then(data => {
+        this.contacts = data;
+      });
+  }
+
+  getFoodPreferences() {
+    this.http.fetch('foodpreference')
+      .then(response => { return response.json(); })
+      .then(data => {
+        this.foodPreferences = data;
+        this.sortFoodPreferences();
+      });
+  }
+
+  sortFoodPreferences() {
+    console.log('sorting');
+    console.log(this.foodPreferences);
+    let upperCaseNames = [];
+    let sortedObjects = [];
+    for (let i = 0; i < this.foodPreferences.length; i++) {
+      if (this.language === 'swe') {
+        upperCaseNames.push(this.foodPreferences[i].SwedishName.toUpperCase());
+      } else {
+        upperCaseNames.push(this.foodPreferences[i].EnglishName.toUpperCase());
+      }
+    }
+    let sortedList = upperCaseNames.sort();
+    console.log(sortedList);
+    for (let i = 0; i < sortedList.length; i++) {
+      for (let j = 0; j < this.foodPreferences.length; j++) {
+        if (this.language === 'swe') {
+          if (sortedList[i] === this.foodPreferences[j].SwedishName.toUpperCase()) {
+            sortedObjects.push(this.foodPreferences[j]);
+            continue;
+          }
+        } else {
+          if (sortedList[i] === this.foodPreferences[j].EnglishName.toUpperCase()) {
+            sortedObjects.push(this.foodPreferences[j]);
+            continue;
+          }
+        }
+      }
+    }
+    this.foodPreferences = sortedObjects;
+    console.log(this.foodPreferences);
+  }
+
+  sendRegistration(persons) {
+    let statusCode;
+    this.http.fetch('registration', { method: 'post', body: json(persons) })
+      .then(response => {
+        statusCode = respnse.status;
+        if (statusCode === 200) {
+          this.registrationReceived = true;
+        } else {
+          this.registrationFailure = true;
+        }
+      });
   }
 
   login(password) {

@@ -5,7 +5,7 @@
       yourself welcome!'}
     </div>
   </div>
-  <div class="row" repeat.for="person of persons">
+  <div class="row" repeat.for="person of persons" if.bind="session.foodPreferences && !session.registrationReceived">
     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10 registration-form">
       <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -18,26 +18,62 @@
           <input type="text" value.bind="person.phone" placeholder="${session.language==='swe'?'Telefon':'Phone number'}" class="registration-input">
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" if.bind="persons.length>1">
-          <i class="fa fa-minus-circle"></i>
+          <i class="fa fa-minus-circle clickable" click.delegate="removePerson(person)"></i>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <input type="text" value.bind="person.email" placeholder="${session.language==='swe'?'Epost':'E-mail'}" class="registration-input">
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          ${session.language==='swe'?'Matpreferenser':'Food preferences'}: 
-          <select value.bind="person.newPreference" if.bind="showFoodPreferences">
-            <option repeat.for="pref of session.foodPreferences">${session.language==='swe'?pref.Swedish:pref.English}</option>
-            <option click.delegate="addFoodPreference()">${session.language==='swe'?'Annan, nämnligen...':'Other, namely...'}</option>
-          </select>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" if.bind="displayPersons">
+
+          <template if.bind="!person.newPref">
+            ${person.newPreference} ${session.language==='swe'?'Vad du inte äter':'What you don\'t eat'}:
+            <select value.bind="person.newFoodPreference" change.delegate="addFoodPreference(person)">
+              <option model.bind="-1">${session.language==='swe'?'Ingen vald':'No selected'}</option>
+              <option repeat.for="pref of session.foodPreferences">${session.language==='swe'?pref.SwedishName:pref.EnglishName}</option>
+              <option model.bind="0">${session.language==='swe'?'Annan, nämnligen...':'Other, namely...'}</option>
+            </select>
+          </template>
+
+          <template if.bind="person.newPref">
+            <input type="text" value.bind="person.prefToAdd" placeholder="${session.language==='swe'?'Ny matpreferens':'New preference'}">
+          </template>
+          <template if.bind="person.newPref || (person.newFoodPreference && person.newFoodPreference !== -1)">
+            <button click.delegate="addPreferenceAfterClick(person)">${session.language==='swe'?'Lägg till':'Add'}</button>
+          </template>
+          ${message}
         </div>
       </div>
-      <div class="row" if.bind="showFoodPreferences">
+      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          ${session.language==='swe'?'Valda matpreferenser':'Chosen food preferences'}: ${foodPreferenceList(person.foodPreferences)}
+          ${session.language==='swe'?'Valda matpreferenser':'Chosen food preferences'}:
+          <template repeat.for="food of person.foodPreferences">${session.language==='swe'?food.SwedishName:food.EnglishName}${$index===person.foodPreferences.length-2?' \& ':($index===person.foodPreferences.length-1?'':',
+            ')}
+          </template>
         </div>
       </div>
     </div>
   </div>
+  <div class="row" id="submit-buttons">
+    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <button click.delegate="addPerson()" class="center-right">${session.language==='swe'?'Lägg till person':'Add person'}</button>
+    </div>
+    <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div> -->
+    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-5 col-sm-5 col-md-5 col-lg-5">
+      <button class="center-left">${session.language==='swe'?'Skicka in anmälan':'Submit'}</button>
+    </div>
+  </div>
+  <template if.bind="session.registrationReceived">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3 class="center-text">${session.language==='swe'?'Anmälan är mottagen!':'Registration received!'}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button class="center-object" click.delegate="resetForm()">${session.language==='swe'?'Anmäl fler':'Register more'}</button>
+      </div>
+    </div>
+  </template>
 </template>

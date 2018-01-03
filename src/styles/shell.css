@@ -80,6 +80,16 @@ h3 {
   text-align: left;
 }
 
+.center-left {
+  position: absolute;
+  left: 0;
+}
+
+.center-right {
+  position: absolute;
+  right: 0;
+}
+
 #sweflag {
   right: -10px;
 }
