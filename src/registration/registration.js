@@ -129,6 +129,9 @@ export class Registration {
     this.persons = [this.generatePerson()];
     this.session.registrationReceived = false;
     this.session.getFoodPreferences();
+    this.newFoodPreference = '';
+    this.addPrefButton = false;
+    this.displayPersons = true;
   }
 
   removePerson(person) {
@@ -144,5 +147,57 @@ export class Registration {
     this.persons = newPersonsList;
     this.displayPersons = false;
     setTimeout(() => { this.displayPersons = true; }, 10);
+  }
+
+  sendForm() {
+    let persons = [];
+    let goodForm = true;
+    for (let i = 0; i < this.persons.length; i++) {
+      let person = this.persons[i];
+      if (this.isNotValid(person.firstName)) {
+        this.message = this.session.language === 'swe' ? 'Förnamnet är inte ifyllt' : 'First name is not filled';
+        goodForm = false;
+        break;
+      } else if (this.isNotValid(person.lastName)) {
+        this.message = this.session.language === 'swe' ? 'Efternamet är inte ifyllt' : 'Last name is not filled';
+        goodForm = false;
+        break;
+      } else if (this.isNotValid(person.phone)) {
+        this.message = this.session.language === 'swe' ? 'Telefonnumret är inte ifyllt' : 'Phone number is not filled';
+        goodForm = false;
+        break;
+      } else if (this.isNotValid(person.email)) {
+        this.message = this.session.language === 'swe' ? 'Epostadressen är inte ifylld' : 'Email address is not filled';
+        goodForm = false;
+        break;
+      }
+      persons.push({'firstName': person.firstName,
+      'lastName': person.lastName,
+      'phone': person.phone,
+      'email': person.email,
+      'foodPreferences': person.foodPreferences,
+      'going': person.going
+      });
+    }
+    if (goodForm) {
+      this.session.sendForm(persons);
+    }
+    console.log(this.message);
+  }
+
+  isNotValid(text) {
+    if (!text) {
+      return true;
+    }
+    let count = 0;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === ' ') {
+        count++;
+      }
+    }
+    if (count === text.length) {
+      return true;
+    }
+    return false;
   }
 }

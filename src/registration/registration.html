@@ -44,6 +44,12 @@
           </template>
           ${message}
         </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+          <select value.bind="person.going">
+            <option model.bind="true">Kommer</option>
+            <option model.bind="false">Kommer inte</option>
+          </select>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -55,13 +61,13 @@
       </div>
     </div>
   </div>
-  <div class="row" id="submit-buttons">
+  <div class="row" id="submit-buttons" if.bind="!session.registrationReceived">
     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4">
       <button click.delegate="addPerson()" class="center-right">${session.language==='swe'?'Lägg till person':'Add person'}</button>
     </div>
     <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div> -->
     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-5 col-sm-5 col-md-5 col-lg-5">
-      <button class="center-left">${session.language==='swe'?'Skicka in anmälan':'Submit'}</button>
+      <button class="center-left" click.delegate="sendForm()">${session.language==='swe'?'Skicka in anmälan':'Submit'}</button>
     </div>
   </div>
   <template if.bind="session.registrationReceived">

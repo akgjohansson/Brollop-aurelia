@@ -7,7 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        .withBaseUrl('http://localhost:57041/')
+        //.withBaseUrl('http://localhost:57041/')
+        .withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {
@@ -70,14 +71,11 @@ export class Session {
   }
 
   getInfo(infoName) {
-    let infoOutput = '';
     for (let i = 0; i < this.infos.length; i++) {
       if (this.infos[i].Name.toLowerCase() === infoName.toLowerCase()) {
-        infoOutput = this.language === 'swe' ? this.infos[i].Swedish : this.infos[i].English;
-        break;
+        return this.infos[i];
       }
     }
-    return infoOutput;
   }
 
   getContacts() {
@@ -131,11 +129,12 @@ export class Session {
     console.log(this.foodPreferences);
   }
 
-  sendRegistration(persons) {
+  sendForm(persons) {
     let statusCode;
-    this.http.fetch('registration', { method: 'post', body: json(persons) })
+    console.log(persons);
+    this.http.fetch('person/registration', { method: 'post', body: json({persons}) })
       .then(response => {
-        statusCode = respnse.status;
+        statusCode = response.status;
         if (statusCode === 200) {
           this.registrationReceived = true;
         } else {
