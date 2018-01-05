@@ -41,5 +41,10 @@ export default [
     name: 'admin',
     route: 'admin',
     moduleId: 'admin/admin'
+  },
+  {
+    name: 'food-preferences',
+    route: 'food-preferences',
+    moduleId: 'food-preferences/food-preferences'
   }
 ];

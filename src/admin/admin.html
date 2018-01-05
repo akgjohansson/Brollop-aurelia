@@ -11,6 +11,9 @@
       </div>
     </div>
   </form>
+  <div class="center-text" if.bind="administrator">
+    <h4 class="clickable" click.delegate="session.router.navigate('food-preferences')">Hantera matpreferenser</h4>
+  </div>
   <div class="row" if.bind="administrator">
     <div class.bind="adminClass">
       <input type="text" placeholder="Namn" value.bind="name">
