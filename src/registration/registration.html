@@ -37,7 +37,7 @@
           </template>
 
           <template if.bind="person.newPref">
-            <input type="text" value.bind="person.prefToAdd" placeholder="${session.language==='swe'?'Ny matpreferens':'New preference'}">
+            <input type="text" value.bind="person.prefToAdd" focus.bind="person.newPref" placeholder="${session.language==='swe'?'Ny matpreferens':'New preference'}">
           </template>
           <template if.bind="person.newPref || (person.newFoodPreference && person.newFoodPreference !== -1)">
             <button click.delegate="addPreferenceAfterClick(person)">${session.language==='swe'?'Lägg till':'Add'}</button>
