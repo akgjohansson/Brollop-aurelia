@@ -1,3 +1,18 @@
 <template>
-
+  <div class="scroll-container">
+    <div class="row">
+      <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <template repeat.for="lodgingType of session.lodgings">
+          <h4>
+            <u>${session.language==='swe'?lodgingType.SwedishName:lodgingType.EnglishName}</u>
+          </h4>
+          <template repeat.for="lodging of lodgingType.Lodgings">
+            ${session.language==='swe'?lodging.SwedishName:lodging.EnglishName}
+            <a href="${lodging.Url}" target="_blank">${lodging.Url}</a>
+            <br/>
+          </template>
+        </template>
+      </div>
+    </div>
+  </div>
 </template>

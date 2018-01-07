@@ -1,3 +1,9 @@
 <template>
-  ${session.language==='swe'?info.Swedish:info.English}
+  <div class="scroll-container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-sm-10 col-md-10 col-lg-10">
+        <img src="/img/om_oss.jpg" id="about-us-image" /> ${session.language==='swe'?info.Swedish:info.English}
+      </div>
+    </div>
+  </div>
 </template>

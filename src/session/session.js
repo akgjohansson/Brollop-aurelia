@@ -7,8 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        //.withBaseUrl('http://localhost:57041/')
-        .withBaseUrl('/api/')
+        .withBaseUrl('http://localhost:57041/')
+        //.withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {
@@ -30,6 +30,8 @@ export class Session {
     this.foodPreferences = [];
     this.getFoodPreferences();
     this.registrationReceived = false;
+    this.lodgings = null;
+    this.getLodgings();
   }
 
   getMenuItems() {
@@ -145,5 +147,17 @@ export class Session {
 
   login(password) {
     return this.http.fetch(`admin/${password}`);
+  }
+
+  getLodgings() {
+    this.http.fetch('lodging')
+    .then(response => { 
+      console.log(response.status);
+      return response.json();
+    })
+    .then(data =>{
+      console.log(data);
+      this.lodgings = data;
+    });
   }
 }

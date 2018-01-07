@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-dependency-injection';
 import { Session } from 'session/session';
-//import { setTimeout } from 'timers';
+import $ from 'jquery';
 
 @inject(Session)
 export class Registration {
@@ -14,7 +14,6 @@ export class Registration {
   }
 
   activate() {
-    console.log(this.persons);
   }
 
   generatePerson() {
@@ -35,8 +34,10 @@ export class Registration {
 
   addFoodPreference(person) {
     this.message = '';
+    console.log(person);
     if (person.newFoodPreference === 0) {
       person.newPref = true;
+      setTimeout(() => {$('#new-pref-text').focus();}, 10);
     } else if (!person.newFoodPreference) {
       setTimeout(() => { this.addFoodPreference(person); }, 100);
     } else {
@@ -44,6 +45,9 @@ export class Registration {
     }
   }
   addPreferenceAfterClick(person) {
+    console.log('preference after click');
+    this.message = '';
+    console.log(person);
     if (person.newPref) { // Enter new food preference
       if (person.prefToAdd) {
         for (let i = 0; i < this.session.foodPreferences.length; i++) {
@@ -171,12 +175,13 @@ export class Registration {
         goodForm = false;
         break;
       }
-      persons.push({'firstName': person.firstName,
-      'lastName': person.lastName,
-      'phone': person.phone,
-      'email': person.email,
-      'foodPreferences': person.foodPreferences,
-      'going': person.going
+      persons.push({
+        'firstName': person.firstName,
+        'lastName': person.lastName,
+        'phone': person.phone,
+        'email': person.email,
+        'foodPreferences': person.foodPreferences,
+        'going': person.going
       });
     }
     if (goodForm) {

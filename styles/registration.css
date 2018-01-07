@@ -3,7 +3,6 @@
 }
 
 .registration-form {
-  margin-top: 10px;
   padding:10px;
   border-style: dotted;
   border-width: 1px;
@@ -23,4 +22,23 @@
 
 #submit-buttons {
   margin-top: 20px;
+}
+
+#not-eating-text {
+  margin-right: 10px;
+}
+
+#not-eating-line {
+  float: left;
+}
+
+#is-going-select {
+  position: relative;
+  left: -10px;
+  top: 5px;
+}
+
+#is-going-select-xs {
+  position: relative;
+  left: 15px;
 }

@@ -1,12 +1,42 @@
+@font-face {
+  font-family: 'Brotherhood script';
+  src: url('/fonts/Brotherhood_Script.ttf');
+}
+
+@font-face {
+  font-family: 'Libre Caslon Display';
+  src: url('/fonts/LibreCaslonDisplay-Regular.ttf');
+}
+
 h1 {
   text-align: center;
-  font-size: 4.5vw;
+  font-size: 600%;
+  font-family: 'Brotherhood Script', 'Brotherhood Script', serif;
 }
 
 h3 {
   text-align: center;
   font-size: 2.5vw;
 }
+
+#menu-container {
+  /* height: 30%;
+  position: relative;
+  top:0; */
+}
+
+#router-view {
+  position: absolute;
+  display:flex;
+  font-size: 18px;
+}
+
+
+/* router-view {
+  flex: 1 1 auto;
+  overflow:hidden;
+  box-sizing: border-box;
+} */
 
 .clickable {
   cursor: pointer;
@@ -15,6 +45,36 @@ h3 {
 .underscore {
   text-decoration: underline;
 }
+
+.scroll-container {
+  /* height: 100%; */
+  /* box-sizing: border-box; */
+  /* width: 100%; */
+  position: absolute;
+  top: 0;
+  bottom: 25px;
+  word-wrap: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 0px;
+  background-color: #F5F5F5;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #005a95;
+}
+
 
 .page-host-background {
   bottom: 0;
@@ -25,8 +85,8 @@ h3 {
   position: relative;
   right: 0;
   /* top: 60px; */
-  background-image: url('../../img/Bild1.png');
-  background-size: 100%;
+  background-image: url('/../../img/bonderose-sn.jpg');
+  background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }
@@ -38,15 +98,17 @@ h3 {
   height: 100vh;
 }
 
-.page-host {
+#page-host {
   padding: 10px;
   border-style: double;
   border-width: 10px;
   height: 100%;
+  font-family: 'Libre Caslon Display', 'Libre Caslon Display', serif;
 }
 
 .menuItem {
   cursor: pointer;
+  font-size:20px;
 }
 
 .center-text {
@@ -90,6 +152,48 @@ h3 {
   right: 0;
 }
 
+.hamburger {
+  position: absolute;
+  top:30px;
+  right:40px;
+  font-size: 35px;
+  padding:5px;
+}
+
+#side-menu {
+  width: 70%;
+  height: 100%;
+  top:0px;
+  left: 25px;
+  margin:25px;
+  position: fixed;
+  -webkit-transition: all 1.0s ease;
+  -moz-transition: all 1.0s ease;
+  -o-transition: all 1.0s ease;
+  transition: left 1s ease;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
+}
+
+.side-menu-item {
+  margin: 10px;
+}
+/* 
+.side-menu {
+  position: relative;
+  left: 100vW;
+} */
+
+.side-menu-open {
+  left: 10%;
+}
+
+.side-menu-open {
+  left: 100%;
+  background-color: black;
+}
+
 #sweflag {
   right: -10px;
 }
@@ -98,8 +202,27 @@ h3 {
   right: 10px;
 }
 
-#contact-table {
-  width: 100%;
+#dot-between-words {
   position: relative;
-  top:20px;
+  bottom:5px;
+  font-size: 5px;
+}
+
+@media (max-width: 479px) {
+  h1 {
+    font-size: 400%;
+  }
+
+  /* // iPhone */
+  @media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) { /* STYLES GO HERE */}
+/* 
+  @media only screen 
+  and (min-device-width : 768px) 
+  and (max-device-width : 1024px)  { 
+    #router-view {
+      height: 100%;
+    }
+  } */
 }

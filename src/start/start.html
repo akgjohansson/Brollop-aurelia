@@ -1,12 +1,14 @@
 <template>
-  <div class="row">
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-      <img src="../../img/andreas_johanna_london.jpg" width="100%">
-    </div>
-  </div>
-  <div class="row">
+  <div class="scroll-container">
+    <div class="row">
       <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-    ${session.language==='swe'?info.Swedish:info.English}
+        <img src="../../img/andreas_johanna_london.jpg" width="100%">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+        ${session.language==='swe'?info.Swedish:info.English}
+      </div>
     </div>
   </div>
 </template>

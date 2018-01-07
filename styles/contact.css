@@ -1,0 +1,25 @@
+#contact-table {
+  width: 100%;
+  position: relative;
+  top:20px;
+}
+table {
+  white-space: nowrap;
+}
+td {
+  padding: 5px;
+  max-width: calc(100% - 50px);
+  word-wrap: break-word;
+}
+/* 
+.menu-table-row {
+  width:100%;
+}
+
+.name-table-row {
+  width: 50%;
+}
+
+.content-table-row {
+  width:30%;
+} */
