@@ -20,7 +20,7 @@
               <tr class="content-table-row">
                 <td class="name-table-row">${person.FirstName} ${person.LastName}</td>
                 <td class="content-table-row large-unit">${person.Phone?(session.language==='swe'?'0':'+46 '):''}${person.Phone}</td>
-                <td class="content-table-row large-unit">${person.Email}</td>
+                <td class="content-table-row large-unit"><a href="mailto:${person.Email}">${person.Email}</a></td>
               </tr>
               <tr class="mobile-phone">
                 <td>${person.Phone?(session.language==='swe'?'Telefon:':'Phone:'):''}</td>
@@ -29,7 +29,7 @@
               </tr>
               <tr class="mobile-phone">
                 <td>${person.Email?(session.language==='swe'?'Epost:':'E-mail:'):''}</td>
-                <td class="content-table-row">${person.Email}</td>
+                <td class="content-table-row"><a href="mailto:${person.Email}">${person.Email}</a></td>
                 <td></td>
               </tr>
             </template>

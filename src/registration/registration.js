@@ -11,9 +11,20 @@ export class Registration {
     this.newFoodPreference = '';
     this.addPrefButton = false;
     this.displayPersons = true;
+    this.comment = '';
+    this.info = null;
+  }
+  
+  activate() {
+    this.getInfo();
   }
 
-  activate() {
+  editRegistration() {
+    
+  }
+
+  getInfo() {
+    this.info = this.session.getInfo('registration');
   }
 
   generatePerson() {
@@ -37,7 +48,7 @@ export class Registration {
     console.log(person);
     if (person.newFoodPreference === 0) {
       person.newPref = true;
-      setTimeout(() => {$('#new-pref-text').focus();}, 10);
+      setTimeout(() => { $('#new-pref-text').focus(); }, 10);
     } else if (!person.newFoodPreference) {
       setTimeout(() => { this.addFoodPreference(person); }, 100);
     } else {
@@ -136,6 +147,7 @@ export class Registration {
     this.newFoodPreference = '';
     this.addPrefButton = false;
     this.displayPersons = true;
+    this.comment = '';
   }
 
   removePerson(person) {
@@ -185,7 +197,7 @@ export class Registration {
       });
     }
     if (goodForm) {
-      this.session.sendForm(persons);
+      this.session.sendForm(persons, this.comment);
     }
     console.log(this.message);
   }

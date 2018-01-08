@@ -1,9 +1,8 @@
 <template>
   <div class="scroll-container">
     <div class="row" id="registration-text">
-      <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-        ${session.language==='swe'?'Fyll i formuläret nedan och känn dig välkommen!':'Please fill out the form below and consider
-        yourself welcome!'}
+      <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10" if.bind="info">
+        ${session.language==='swe'?info.Swedish:info.English}<br/>${session.language==='swe'?'Om du redan anmält dig så kan du ':'If you already registered, you can '}<a click.delegate="editRegistration()">${session.language==='swe'?'redigera anmälan':'edit the registration'}</a> ${session.language==='swe'?'här':'here'}.
       </div>
     </div>
     <div class="row" repeat.for="person of persons" if.bind="session.foodPreferences && !session.registrationReceived">
@@ -79,6 +78,11 @@
         </div>
       </div>
     </div>
+    <div class="row">
+    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10">
+      <textarea value.bind="comment" placeholder="${session.language==='swe'?'Kommentar':'Comment'}" id="comment"></textarea>
+    </div>
+  </div>
     <div class="row" id="submit-buttons" if.bind="!session.registrationReceived">
       <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <button click.delegate="addPerson()" class="center-right">${session.language==='swe'?'Lägg till person':'Add person'}</button>

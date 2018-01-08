@@ -18,16 +18,20 @@
                   <div width="{Binding ActualWidth, ElementName=title-text}" style="border-width:10px; border-color:black;"></div>
                   <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                      <h3 class="center-text">19 maj 2018&emsp;
-                          <i id="dot-between-words" class="fa fa-circle"></i>
+                      <h3 class="center-text days-left-container">19 maj 2018&emsp;
+                        <i id="dot-between-words" class="fa fa-circle"></i>
                         &emsp;${session.remainingDays} ${session.language==='swe'?'dagar kvar':'days left'}</h3>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="hidden-xs col-sm-2 col-md-2 col-lg-2" repeat.for="menuItem of session.menuItems">
-                  <div click.delegate="router.navigate(menuItem.Navigation)" class="menuItem ${menuItem.Navigation===router.currentInstruction.config.name?'underscore':''}">${session.language==='swe'?menuItem.Swedish:menuItem.English}</div>
+                <div class="col-sm-offset-1 col-sm-10 col-md-offset-1 col-lg-offset-1 col-xl-offset-1 col-md-10 col-lg-10 col-xl-10">
+                  <div class="row">
+                    <div class="hidden-xs col-sm-2 col-md-2 col-lg-2" repeat.for="menuItem of session.menuItems">
+                      <div click.delegate="router.navigate(menuItem.Navigation)" class="menuItem ${menuItem.Navigation===router.currentInstruction.config.name?'underscore':''} float-menu-item">${session.language==='swe'?menuItem.Swedish:menuItem.English}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

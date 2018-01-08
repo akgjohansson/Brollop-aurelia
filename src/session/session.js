@@ -131,10 +131,10 @@ export class Session {
     console.log(this.foodPreferences);
   }
 
-  sendForm(persons) {
+  sendForm(persons, comment) {
     let statusCode;
     console.log(persons);
-    this.http.fetch('person/registration', { method: 'post', body: json({persons}) })
+    this.http.fetch('person/registration', { method: 'post', body: json({persons, comment}) })
       .then(response => {
         statusCode = response.status;
         if (statusCode === 200) {

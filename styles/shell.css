@@ -8,6 +8,10 @@
   src: url('/fonts/LibreCaslonDisplay-Regular.ttf');
 }
 
+a {
+  cursor: pointer;
+}
+
 img {
   padding:10px;
 }
@@ -114,9 +118,18 @@ button {
   font-family: 'Libre Caslon Display', 'Libre Caslon Display', serif;
 }
 
+.days-left-container {
+  font-size: 15px;
+}
+
 .menuItem {
   cursor: pointer;
   font-size:20px;
+}
+
+.float-menu-item {
+  overflow: visible;
+  white-space:nowrap;
 }
 
 .center-text {
@@ -212,8 +225,8 @@ button {
 
 #dot-between-words {
   position: relative;
-  bottom:5px;
-  font-size: 5px;
+  bottom:4px;
+  font-size: 4px;
 }
 
 @media (max-width: 479px) {
