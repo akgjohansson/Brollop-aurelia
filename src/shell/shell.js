@@ -6,6 +6,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import $ from 'jquery';
+import {PLATFORM} from 'aurelia-pal';
 
 @inject(Aurelia, HttpClient, Router, EventAggregator)
 export class Shell {
@@ -18,6 +19,7 @@ export class Shell {
     this.ea = eventAggregator;
     this.hamburgerCLass = 'side-menu-closed';
     this.viewHamburger = false;
+    this.resize = () => this.setRouterViewSize();
   }
 
   attached() {
@@ -26,6 +28,12 @@ export class Shell {
       this.aurelia.use.instance(Session, this.session);
     }
     this.setRouterViewSize();
+
+    PLATFORM.global.addEventListener('resize', this.resize)
+  }
+
+  detached() {
+    PLATFORM.global.removeEventListener('resize');
   }
 
   setRouterViewSize() {

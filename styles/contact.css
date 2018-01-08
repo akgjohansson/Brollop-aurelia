@@ -8,8 +8,9 @@ table {
 }
 td {
   padding: 5px;
-  max-width: calc(100% - 50px);
+  max-width: 100%;/*calc(100% - 50px);*/
   word-wrap: break-word;
+  overflow: visible;
 }
 /* 
 .menu-table-row {
@@ -19,7 +20,7 @@ td {
 .name-table-row {
   width: 50%;
 }
-
+*/
 .content-table-row {
   width:30%;
-} */
+} 
