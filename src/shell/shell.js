@@ -29,7 +29,7 @@ export class Shell {
     }
     this.setRouterViewSize();
 
-    PLATFORM.global.addEventListener('resize', this.resize)
+    PLATFORM.global.addEventListener('resize', this.resize);
   }
 
   detached() {
@@ -42,14 +42,10 @@ export class Shell {
       let menuDivBottom = menuContainer.position().top + menuContainer.outerHeight(true);
       let pageHostHeight = $('#page-host').outerHeight(true);
       let pageHostWidth = $('#page-host').innerWidth();
-      console.log(menuDivBottom);
       let routerViewContainer = $('#router-view');
       routerViewContainer.css(`top: ${menuDivBottom}px;`);
-      routerViewContainer.width(pageHostWidth);
-      console.log(pageHostHeight - menuDivBottom);
+      routerViewContainer.width(pageHostWidth - 20);
       routerViewContainer.height(pageHostHeight - menuDivBottom);
-      // routerViewContainer.css(`height: ${pageHostHeight - menuDivBottom}px`);
-      console.log(routerViewContainer.outerHeight(true));
     } catch (error) {
       setTimeout(() => { this.setRouterViewSize(); }, 100);
     }

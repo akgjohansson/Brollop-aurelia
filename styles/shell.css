@@ -19,6 +19,10 @@ h3 {
   font-size: 2.5vw;
 }
 
+button {
+  border-radius: 15px;
+}
+
 #menu-container {
   /* height: 30%;
   position: relative;
@@ -49,7 +53,7 @@ h3 {
 .scroll-container {
   /* height: 100%; */
   /* box-sizing: border-box; */
-  /* width: 100%; */
+  width: 100%;
   position: absolute;
   top: 0;
   bottom: 25px;
@@ -65,14 +69,14 @@ h3 {
 }
 
 .scroll-container::-webkit-scrollbar {
-  width: 0px;
+  width: 10px;
   background-color: #F5F5F5;
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  background-color: #005a95;
+  background-color: rgb(110, 110, 110);/*#005a95;*/
 }
 
 
@@ -213,16 +217,20 @@ h3 {
     font-size: 400%;
   }
 
-  /* // iPhone */
-  @media only screen 
-  and (min-device-width : 375px) 
-  and (max-device-width : 667px) { /* STYLES GO HERE */}
-/* 
-  @media only screen 
-  and (min-device-width : 768px) 
-  and (max-device-width : 1024px)  { 
-    #router-view {
-      height: 100%;
-    }
-  } */
+  .mobile-phone {
+  }
+
+  .large-unit {
+    display: none;
+  }
 }
+
+@media (min-width: 479px) {
+  .mobile-phone {
+    display: none;
+  }
+
+  .large-unit {
+  }
+}
+
