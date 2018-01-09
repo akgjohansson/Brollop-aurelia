@@ -29,14 +29,14 @@
             <input type="text" value.bind="person.email" placeholder="${session.language==='swe'?'Epost':'E-mail'}" class="registration-input">
           </div>
           <div class="hidden-xs col-sm-1 col-md-1 col-lg-1">
-            <select value.bind="person.going" id="is-going-select">
+            <select value.bind="person.going" id="is-going-select" class="round-input-type">
               <option model.bind="true">Kommer</option>
               <option model.bind="false">Kommer inte</option>
             </select>
           </div>
           <div class="row">
             <div class="col-xs-11 hidden-sm hidden-md hidden-lg hidden-xl">
-              <select value.bind="person.going" id="is-going-select-xs">
+              <select value.bind="person.going" id="is-going-select-xs" class="round-input-type">
                 <option model.bind="true">Kommer</option>
                 <option model.bind="false">Kommer inte</option>
               </select>
@@ -50,8 +50,8 @@
                 ${person.newPreference} ${session.language==='swe'?'Vad du inte äter':'What you don\'t eat'}:
               </div>
               <div style="display:inline;">
-                <select value.bind="person.newFoodPreference" change.delegate="addFoodPreference(person)">
-                  <option model.bind="-1">${session.language==='swe'?'Ingen vald':'No selected'}</option>
+                <select value.bind="person.newFoodPreference" change.delegate="addFoodPreference(person)" class="round-input-type">
+                  <option model.bind="-1">${session.language==='swe'?'Ingen vald':'None selected'}</option>
                   <option repeat.for="pref of session.foodPreferences">${session.language==='swe'?pref.SwedishName:pref.EnglishName}</option>
                   <option model.bind="0">${session.language==='swe'?'Annan, nämnligen...':'Other, namely...'}</option>
                 </select>
@@ -68,7 +68,7 @@
           </div>
 
         </div>
-        <div class="row">
+        <div class="row" if.bind="person.foodPreferences.length>0">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             ${session.language==='swe'?'Valda matpreferenser':'Chosen food preferences'}:
             <template repeat.for="food of person.foodPreferences">${session.language==='swe'?food.SwedishName:food.EnglishName}${$index===person.foodPreferences.length-2?' \&
@@ -80,7 +80,7 @@
     </div>
     <div class="row">
     <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10">
-      <textarea value.bind="comment" placeholder="${session.language==='swe'?'Kommentar':'Comment'}" id="comment"></textarea>
+      <textarea value.bind="comment" placeholder="${session.language==='swe'?'Kommentar':'Comment'}" id="comment" class="round-input-type"></textarea>
     </div>
   </div>
     <div class="row" id="submit-buttons" if.bind="!session.registrationReceived">

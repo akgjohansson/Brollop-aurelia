@@ -20,7 +20,7 @@ export class Registration {
   }
 
   editRegistration() {
-    
+
   }
 
   getInfo() {
@@ -56,9 +56,7 @@ export class Registration {
     }
   }
   addPreferenceAfterClick(person) {
-    console.log('preference after click');
     this.message = '';
-    console.log(person);
     if (person.newPref) { // Enter new food preference
       if (person.prefToAdd) {
         for (let i = 0; i < this.session.foodPreferences.length; i++) {

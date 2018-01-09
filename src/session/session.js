@@ -7,8 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        .withBaseUrl('http://localhost:57041/')
-        //.withBaseUrl('/api/')
+        //.withBaseUrl('http://localhost:57041/')
+        .withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {

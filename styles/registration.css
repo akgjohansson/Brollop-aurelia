@@ -7,12 +7,24 @@
   border-style: dotted;
   border-width: 1px;
   border-color: black;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.round-input-type {
+  border-radius: 10px;
+  padding: 3px;  
 }
  
 .registration-input {
   width: 100%;
   margin-top:5px;
   margin-bottom:5px;
+  border-radius: 10px;
+}
+
+.registration-form > select {
+  border-radius: 10px;
 }
 
 .remove-button {
