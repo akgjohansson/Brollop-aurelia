@@ -1,9 +1,7 @@
 <template>
-  <div id="side-menu">
     <div click.delegate="sideMenuItemClick(menuItem.Navigation)" class="row clickable side-menu-item" repeat.for="menuItem of session.menuItems">
       <div class="col-xs-offset-1 col-xs-10">
         <div class="menuItem ${menuItem.Navigation===router.currentInstruction.config.name?'underscore':''}">${session.language==='swe'?menuItem.Swedish:menuItem.English}</div>
       </div>
     </div>
-  </div>
 </template>

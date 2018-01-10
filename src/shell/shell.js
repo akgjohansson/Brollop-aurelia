@@ -6,7 +6,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import $ from 'jquery';
-import {PLATFORM} from 'aurelia-pal';
+import { PLATFORM } from 'aurelia-pal';
 
 @inject(Aurelia, HttpClient, Router, EventAggregator)
 export class Shell {

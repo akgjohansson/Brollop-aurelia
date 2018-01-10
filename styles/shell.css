@@ -31,6 +31,14 @@ button {
   border-radius: 15px;
 }
 
+.remove-menu-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left:0;
+  top:0;
+}
+
 #menu-container {
   /* height: 30%;
   position: relative;
@@ -182,16 +190,16 @@ button {
 }
 
 #side-menu {
-  width: 70%;
+  position: fixed;
+  width: calc(100vw - 50px);
+  height: calc(100vh - 50px);
+  top: 0;
+  left:0;
+  /* width: 70%;
   height: 100%;
   top:0px;
-  left: 25px;
+  left: 25px; */
   margin:25px;
-  position: fixed;
-  -webkit-transition: all 1.0s ease;
-  -moz-transition: all 1.0s ease;
-  -o-transition: all 1.0s ease;
-  transition: left 1s ease;
   background-color: black;
   opacity: 0.8;
   color: white;

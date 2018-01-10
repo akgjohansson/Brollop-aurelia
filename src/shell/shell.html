@@ -58,6 +58,7 @@
   </div>
 
   <div id="side-menu" class="side-menu" if.bind="viewHamburger">
+      <div class="remove-menu-overlay" if.bind="viewHamburger" click.delegate="clickHamburger()"></div>
     <compose view="./side-menu.html"></compose>
   </div>
   <!-- <compose view="./header.html"></compose> -->
