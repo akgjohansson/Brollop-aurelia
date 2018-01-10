@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row food-preference-container">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" if.bind="displayPersons">
             <template if.bind="!person.newPref">
               <div id="not-eating-text" style="display:inline;">
@@ -72,7 +72,7 @@
             </template>
 
             <template if.bind="person.newPref">
-              <input id="new-pref-text" type="text" value.bind="person.prefToAdd" placeholder="${session.language==='swe'?'Ny matpreferens':'New preference'}">
+              <input id="new-pref-text" type="text" value.bind="person.prefToAdd" placeholder="${session.language==='swe'?'Ny matpreferens':'New preference'}" class="round-input-type">
             </template>
             <template if.bind="person.newPref || (person.newFoodPreference && person.newFoodPreference !== -1)">
               <button click.delegate="addPreferenceAfterClick(person)">${session.language==='swe'?'Lägg till':'Add'}</button>
@@ -83,10 +83,15 @@
         </div>
         <div class="row" if.bind="person.foodPreferences.length>0">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            ${session.language==='swe'?'Valda matpreferenser':'Chosen food preferences'}:
+            ${session.language==='swe'?'Jag äter inte':'I don\'t eat'}:
             <span class="clickable" repeat.for="food of person.foodPreferences" click.delegate="removePreferenceFromPersonList(person, food)">${session.language==='swe'?food.SwedishName:food.EnglishName}${$index===person.foodPreferences.length-2?' \&
               ':($index===person.foodPreferences.length-1?'':', ')}
             </span>
+          </div>
+        </div>
+        <div class="row" if.bind="person.foodPreferences.length>0">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <h5>${session.language==='swe'?'Tryck på preferensen för att ta bort den':'Tap the preference to remove it'}</h5>
           </div>
         </div>
         <div class="row center-text" id="send-message" if.bind="person.sendMessage">
