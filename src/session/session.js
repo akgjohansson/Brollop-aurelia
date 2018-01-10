@@ -145,6 +145,19 @@ export class Session {
       });
   }
 
+  sendUpdate(persons, comment, companyId) {
+    let statusCode;
+    this.http.fetch(`person/registration/${companyId}`, {method: 'put', body: json({persons, comment})})
+    .then(response =>{
+      statusCode = response.status;
+      if (statusCode === 200) {
+        this.registrationReceived = true;
+      } else {
+        this.registrationFailure = true;
+      }
+    });
+  }
+
   login(password) {
     return this.http.fetch(`admin/${password}`);
   }

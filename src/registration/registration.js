@@ -13,14 +13,54 @@ export class Registration {
     this.displayPersons = true;
     this.comment = '';
     this.info = null;
+    this.edit = false;
+    this.editInProgress = false;
+    this.editMessage = '';
+    this.editCompanyId = '';
   }
-  
+
   activate() {
     this.getInfo();
   }
 
-  editRegistration() {
+  beginEdit() {
+    this.edit = true;
+    setTimeout(() => {$('#reference-code-input').focus();}, 10);
+  }
 
+  editRegistration() {
+    let statusCode;
+    this.session.http.fetch(`person/${this.referenceCode}`)
+      .then(response => {
+        statusCode = response.status;
+        return response.json();
+      }).then(data => {
+        if (statusCode === 200) {
+          this.editMessage = '';
+          this.loadCompany(data);
+          this.editInProgress = true;
+          this.referenceCode = '';
+        } else {
+          this.editMessage = this.session.language === 'swe' ? 'Anmälan finns inte' : 'Registration does not exist';
+        }
+      });
+  }
+
+  loadCompany(company) {
+    this.resetForm();
+    this.persons = [];
+    this.comment = company.Comment;
+    this.editCompanyId = company.Id;
+    for (let person of company.Persons) {
+      this.persons.push(this.generatePerson());
+      let i = this.persons.length - 1;
+      this.persons[i].firstName = person.FirstName;
+      this.persons[i].lastName = person.LastName;
+      this.persons[i].phone = person.Phone;
+      this.persons[i].email = person.Email;
+      this.persons[i].going = person.Going;
+      this.persons[i].foodPreferences = person.FoodPreferences;
+    }
   }
 
   getInfo() {
@@ -146,6 +186,9 @@ export class Registration {
     this.addPrefButton = false;
     this.displayPersons = true;
     this.comment = '';
+    this.edit = false;
+    this.editInProgress = false;
+    this.editMessage = '';
   }
 
   removePerson(person) {
@@ -164,40 +207,63 @@ export class Registration {
   }
 
   sendForm() {
-    let persons = [];
     let goodForm = true;
+    let persons = [];
     for (let i = 0; i < this.persons.length; i++) {
-      let person = this.persons[i];
-      if (this.isNotValid(person.firstName)) {
-        this.message = this.session.language === 'swe' ? 'Förnamnet är inte ifyllt' : 'First name is not filled';
-        goodForm = false;
-        break;
-      } else if (this.isNotValid(person.lastName)) {
-        this.message = this.session.language === 'swe' ? 'Efternamet är inte ifyllt' : 'Last name is not filled';
-        goodForm = false;
-        break;
-      } else if (this.isNotValid(person.phone)) {
-        this.message = this.session.language === 'swe' ? 'Telefonnumret är inte ifyllt' : 'Phone number is not filled';
-        goodForm = false;
-        break;
-      } else if (this.isNotValid(person.email)) {
-        this.message = this.session.language === 'swe' ? 'Epostadressen är inte ifylld' : 'Email address is not filled';
-        goodForm = false;
+      goodForm = this.inputValidation(this.persons[i]);
+      if (!goodForm) {
         break;
       }
-      persons.push({
-        'firstName': person.firstName,
-        'lastName': person.lastName,
-        'phone': person.phone,
-        'email': person.email,
-        'foodPreferences': person.foodPreferences,
-        'going': person.going
-      });
+      persons.push(this.constructPersonDto(this.persons[i]));
     }
     if (goodForm) {
       this.session.sendForm(persons, this.comment);
     }
     console.log(this.message);
+  }
+
+  sendUpdate() {
+    let goodForm = true;
+    let persons = [];
+    for (let i = 0; i < this.persons.length; i++) {
+      goodForm = this.inputValidation(this.persons[i]);
+      if (!goodForm) {
+        break;
+      }
+      persons.push(this.constructPersonDto(this.persons[i]));
+    }
+    if (goodForm) {
+      this.session.sendUpdate(persons, this.comment, this.editCompanyId);
+      this.editInProgress = false;
+    }
+  }
+
+  constructPersonDto(person) {
+    return {
+      'firstName': person.firstName,
+      'lastName': person.lastName,
+      'phone': person.phone,
+      'email': person.email,
+      'foodPreferences': person.foodPreferences,
+      'going': person.going
+    };
+  }
+
+  inputValidation(person) {
+    if (this.isNotValid(person.firstName)) {
+      this.message = this.session.language === 'swe' ? 'Förnamnet är inte ifyllt' : 'First name is not filled';
+      return false;
+    } else if (this.isNotValid(person.lastName)) {
+      this.message = this.session.language === 'swe' ? 'Efternamet är inte ifyllt' : 'Last name is not filled';
+      return false;
+    } else if (this.isNotValid(person.phone)) {
+      this.message = this.session.language === 'swe' ? 'Telefonnumret är inte ifyllt' : 'Phone number is not filled';
+      return false;
+    } else if (this.isNotValid(person.email)) {
+      this.message = this.session.language === 'swe' ? 'Epostadressen är inte ifylld' : 'Email address is not filled';
+      return false;
+    }
+    return true;
   }
 
   isNotValid(text) {

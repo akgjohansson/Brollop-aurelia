@@ -1,8 +1,15 @@
 <template>
   <div class="scroll-container">
-    <div class="row" id="registration-text">
+    <div class="row" id="registration-text" if.bind="!session.registrationReceived">
       <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10" if.bind="info">
-        ${session.language==='swe'?info.Swedish:info.English}<br/>${session.language==='swe'?'Om du redan anmält dig så kan du ':'If you already registered, you can '}<a click.delegate="editRegistration()">${session.language==='swe'?'redigera anmälan':'edit the registration'}</a> ${session.language==='swe'?'här':'here'}.
+        ${session.language==='swe'?info.Swedish:info.English}
+        <br/>
+        <template if.bind="!edit">${session.language==='swe'?'Om du redan anmält dig så kan du ':'If you already registered, you can '}
+          <a click.delegate="beginEdit()">${session.language==='swe'?'redigera anmälan':'edit the registration'}</a> ${session.language==='swe'?'här':'here'}.</template>
+        <form submit.trigger="editRegistration()" if.bind="edit && !editInProgress">
+          <input id="reference-code-input" type="text" placeholder="${session.language==='swe'?'Referenskod':'Reference code'}" value.bind="referenceCode" class="registration-input">
+        </form>
+        <div if.bind="editMessage">${editMessage}</div>
       </div>
     </div>
     <div class="row" repeat.for="person of persons" if.bind="session.foodPreferences && !session.registrationReceived">
@@ -12,8 +19,8 @@
             <input type="text" value.bind="person.firstName" placeholder="${session.language==='swe'?'Förnamn':'First name'}" class="registration-input">
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" if.bind="persons.length==1">
-              <input type="text" value.bind="person.firstName" placeholder="${session.language==='swe'?'Förnamn':'First name'}" class="registration-input">
-            </div>
+            <input type="text" value.bind="person.firstName" placeholder="${session.language==='swe'?'Förnamn':'First name'}" class="registration-input">
+          </div>
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <input type="text" value.bind="person.lastName" placeholder="${session.language==='swe'?'Efternam':'Last name'}" class="registration-input">
           </div>
@@ -78,24 +85,31 @@
         </div>
       </div>
     </div>
-    <div class="row">
-    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10">
-      <textarea value.bind="comment" placeholder="${session.language==='swe'?'Kommentar':'Comment'}" id="comment" class="round-input-type"></textarea>
+    <div class="row" if.bind="!session.registrationReceived">
+      <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-md-10 col-sm-10 col-lg-10">
+        <textarea value.bind="comment" placeholder="${session.language==='swe'?'Kommentar':'Comment'}" id="comment" class="round-input-type"></textarea>
+      </div>
     </div>
-  </div>
     <div class="row" id="submit-buttons" if.bind="!session.registrationReceived">
       <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <button click.delegate="addPerson()" class="center-right">${session.language==='swe'?'Lägg till person':'Add person'}</button>
       </div>
       <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div> -->
       <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-5 col-sm-5 col-md-5 col-lg-5">
-        <button class="center-left" click.delegate="sendForm()">${session.language==='swe'?'Skicka in anmälan':'Submit'}</button>
+          <button class="center-left" click.delegate="sendUpdate()" if.bind="editInProgress">${session.language==='swe'?'Uppdatera anmälan':'Submit changes'}</button>
+          <button class="center-left" click.delegate="sendForm()" if.bind="!editInProgress">${session.language==='swe'?'Skicka in anmälan':'Submit'}</button>
+        </div>
+    </div>
+    <div class="row" if.bind="editInProgress">
+      <div class="col-xs-offset-5 col-sm-offset-5 col-md-offset-5 col-lg-offset-5 col-xl-offset-5 col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+        <button id="cancel-edit-button" click.delegate="resetForm()">${session.language==='swe'?'Avbryt redigering':'Cancel edit'}</button>
       </div>
     </div>
     <template if.bind="session.registrationReceived">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3 class="center-text">${session.language==='swe'?'Anmälan är mottagen!':'Registration received!'}</h3>
+          <h4>${session.language==='swe'?'Du ska nu ha fått ett mail. Om inte, kolla skräpposten':'You should now have received a confirmation email. If not, check the spam'}</h4>
         </div>
       </div>
       <div class="row">
