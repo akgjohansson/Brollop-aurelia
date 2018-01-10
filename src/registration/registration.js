@@ -17,6 +17,7 @@ export class Registration {
     this.editInProgress = false;
     this.editMessage = '';
     this.editCompanyId = '';
+    this.registrationPending = false;
   }
 
   activate() {
@@ -25,7 +26,7 @@ export class Registration {
 
   beginEdit() {
     this.edit = true;
-    setTimeout(() => {$('#reference-code-input').focus();}, 10);
+    setTimeout(() => { $('#reference-code-input').focus(); }, 10);
   }
 
   editRegistration() {
@@ -127,10 +128,14 @@ export class Registration {
       }
     } else if (person.newFoodPreference !== -1) {
       if (!this.isFoodPreferenceInArray(person.foodPreferences, person.newFoodPreference)) {
-        person.foodPreferences.push({
-          'SwedishName': this.session.language === 'swe' ? person.newFoodPreference : '',
-          'EnglishName': this.session.language === 'eng' ? person.newFoodPreference : ''
-        });
+        let foodPreference = this.getFoodPreferenceFromList(person.newFoodPreference);
+        if (!foodPreference) {
+          foodPreference = {
+            'SwedishName': this.session.language === 'swe' ? foodPreference : '',
+            'EnglishName': this.session.language === 'eng' ? foodPreference : ''
+          };
+        }
+        person.foodPreferences.push(foodPreference);
       }
     }
     person.newFoodPreference = -1;
@@ -139,6 +144,28 @@ export class Registration {
     setTimeout(() => { this.displayPersons = true; }, 10);
     console.log(person);
     console.log(this.session.foodPreferences);
+  }
+
+  removePreferenceFromPersonList(person, food) {
+    for (let i = 0; person.foodPreferences.length; i++) {
+      if (person.foodPreferences[i] === food) {
+        console.log(person.foodPreferences);
+        person.foodPreferences.splice(i,1);
+        console.log(person.foodPreferences);
+        this.displayPersons = false;
+        setTimeout(() => { this.displayPersons = true; }, 10);
+        return;
+      }
+    }
+  }
+
+  getFoodPreferenceFromList(preference) {
+    for (let pref of this.session.foodPreferences) {
+      if (pref.SwedishName === preference || pref.EnglishName === preference) {
+        return pref;
+      }
+    }
+    return null;
   }
 
   isFoodPreferenceInArray(foodArray, food) {
@@ -191,6 +218,7 @@ export class Registration {
     this.editInProgress = false;
     this.editMessage = '';
     this.firstValidationFailed = false;
+    this.registrationPending = false;
   }
 
   removePerson(person) {
@@ -219,24 +247,28 @@ export class Registration {
       persons.push(this.constructPersonDto(this.persons[i]));
     }
     if (goodForm) {
+      this.registrationPending = true;
       this.session.sendForm(persons, this.comment);
     }
     console.log(this.message);
   }
 
   sendUpdate() {
-    let goodForm = true;
-    let persons = [];
-    for (let i = 0; i < this.persons.length; i++) {
-      goodForm = this.inputValidation(this.persons[i]);
-      if (!goodForm) {
-        break;
+    if (!this.registrationPending) {
+      let goodForm = true;
+      let persons = [];
+      for (let i = 0; i < this.persons.length; i++) {
+        goodForm = this.inputValidation(this.persons[i]);
+        if (!goodForm) {
+          break;
+        }
+        persons.push(this.constructPersonDto(this.persons[i]));
       }
-      persons.push(this.constructPersonDto(this.persons[i]));
-    }
-    if (goodForm) {
-      this.session.sendUpdate(persons, this.comment, this.editCompanyId);
-      this.editInProgress = false;
+      if (goodForm) {
+        this.registrationPending = true;
+        this.session.sendUpdate(persons, this.comment, this.editCompanyId);
+        this.editInProgress = false;
+      }
     }
   }
 
