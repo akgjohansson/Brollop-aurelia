@@ -14,9 +14,9 @@ export default [
     nav: true
   },
   {
-    name: 'program',
-    route: 'program',
-    moduleId: 'program/program',
+    name: 'info',
+    route: 'info',
+    moduleId: 'info/info',
     nav: true
   },
   {
