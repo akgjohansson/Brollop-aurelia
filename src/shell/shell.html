@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
         <div class="page-host-container">
-          <div id="page-host" if.bind="session.menuItems && session.infos && session.lodgings">
+          <div id="page-host" class="content-font" if.bind="session.menuItems && session.infos && session.lodgings">
             <div class="row">
               <div class="col-xs-11 col-sm-6 col-md-6 col-lg-6">
                 <span class="clickable flag ${session.language==='swe'?'underscore':''}" src="../../img/swe.png" click.delegate="newLanguage('swe')">Svenska</span>
@@ -57,7 +57,7 @@
     <i class="fa fa-bars clickable hamburger" click.delegate="clickHamburger()"></i>
   </div>
 
-  <div id="side-menu" class="side-menu" if.bind="viewHamburger">
+  <div id="side-menu" class="side-menu content-font" if.bind="viewHamburger">
       <div class="remove-menu-overlay" if.bind="viewHamburger" click.delegate="clickHamburger()"></div>
     <compose view="./side-menu.html"></compose>
   </div>
