@@ -79,7 +79,8 @@ export class Registration {
       'newFoodPreference': '',
       'showFoodPreferences': true,
       'id': this.persons.length,
-      'prefToAdd': ''
+      'prefToAdd': '',
+      'sendMessage': ''
     };
   }
 
@@ -189,6 +190,7 @@ export class Registration {
     this.edit = false;
     this.editInProgress = false;
     this.editMessage = '';
+    this.firstValidationFailed = false;
   }
 
   removePerson(person) {
@@ -251,19 +253,35 @@ export class Registration {
 
   inputValidation(person) {
     if (this.isNotValid(person.firstName)) {
-      this.message = this.session.language === 'swe' ? 'Förnamnet är inte ifyllt' : 'First name is not filled';
+      person.sendMessage = this.session.language === 'swe' ? 'Förnamnet är inte ifyllt' : 'First name is not filled';
+      this.firstValidationFailed = true;
       return false;
     } else if (this.isNotValid(person.lastName)) {
-      this.message = this.session.language === 'swe' ? 'Efternamet är inte ifyllt' : 'Last name is not filled';
+      person.sendMessage = this.session.language === 'swe' ? 'Efternamet är inte ifyllt' : 'Last name is not filled';
+      this.firstValidationFailed = true;
       return false;
     } else if (this.isNotValid(person.phone)) {
-      this.message = this.session.language === 'swe' ? 'Telefonnumret är inte ifyllt' : 'Phone number is not filled';
+      person.sendMessage = this.session.language === 'swe' ? 'Telefonnumret är inte ifyllt' : 'Phone number is not filled';
+      this.firstValidationFailed = true;
       return false;
     } else if (this.isNotValid(person.email)) {
-      this.message = this.session.language === 'swe' ? 'Epostadressen är inte ifylld' : 'Email address is not filled';
+      person.sendMessage = this.session.language === 'swe' ? 'Epostadressen är inte ifylld' : 'Email address is not filled';
+      this.firstValidationFailed = true;
+      return false;
+    } else if (!this.emailValidation(person.email)) {
+      person.sendMessage = this.session.language === 'swe' ? 'Epostadressen har ett felaktigt format' : 'The email address format is wrong';
       return false;
     }
+    person.sendMessage = '';
     return true;
+  }
+
+  textInput() {
+    if (this.firstValidationFailed) {
+      for (let person of this.persons) {
+        this.inputValidation(person);
+      }
+    }
   }
 
   isNotValid(text) {
@@ -280,5 +298,10 @@ export class Registration {
       return true;
     }
     return false;
+  }
+
+  emailValidation(email) {
+    let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return pattern.test(email);
   }
 }
