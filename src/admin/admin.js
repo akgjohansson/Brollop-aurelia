@@ -31,6 +31,9 @@ export class Admin {
               };
             }
           }
+          this.name = '';
+          this.swedish = '';
+          this.english = '';
         });
     }
   }
@@ -46,12 +49,18 @@ export class Admin {
   }
 
   getInfoItem() {
-    for (let i = 0; i < this.session.infos.length; i++) {
-      if (this.chosenInfoItem == this.session.infos[i].Name) {
-        let item = this.session.infos[i];
-        this.name = item.Name;
-        this.swedish = item.Swedish;
-        this.english = item.English;
+    if (!this.chosenInfoItem) {
+      this.name = '';
+      this.swedish = '';
+      this.english = '';
+    } else {
+      for (let i = 0; i < this.session.infos.length; i++) {
+        if (this.chosenInfoItem == this.session.infos[i].Name) {
+          let item = this.session.infos[i];
+          this.name = item.Name;
+          this.swedish = item.Swedish;
+          this.english = item.English;
+        }
       }
     }
   }

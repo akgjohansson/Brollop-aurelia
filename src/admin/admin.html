@@ -37,9 +37,9 @@
   <div class="row" if.bind="administrator">
     <div class.bind="adminClass">
       <select value.bind="chosenInfoItem" change.delegate="getInfoItem()">
+        <option model.bind="0">Ingen vald</option>
         <option repeat.for="infoItem of session.infos">${infoItem.Name}</option>
       </select>
     </div>
-    ${chosenInfoItem}
   </div>
 </template>
