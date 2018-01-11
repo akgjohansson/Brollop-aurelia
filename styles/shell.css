@@ -32,6 +32,7 @@ button {
   border-radius: 15px;
 }
 
+
 .remove-menu-overlay {
   position: fixed;
   width: 100vw;
@@ -70,10 +71,12 @@ button {
 .scroll-container {
   /* height: 100%; */
   /* box-sizing: border-box; */
+  position: relative;
   width: 100%;
+  height: calc(100% - 5px);
   position: absolute;
-  top: 0;
-  bottom: 25px;
+  /* top: 0;
+  bottom: 0px; */
   word-wrap: break-word;
   overflow-y: auto;
   overflow-x: hidden;
@@ -141,9 +144,15 @@ button {
   font-size:20px;
 }
 
+.map-frame {
+  width: 100%;
+  height: auto;
+}
+
 .float-menu-item {
   overflow: visible;
   white-space:nowrap;
+  text-align: center;
 }
 
 .center-text {

@@ -2,7 +2,7 @@
   <div class="scroll-container">
     <div class="row" id="registration-text" if.bind="!session.registrationReceived">
       <div class="col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10" if.bind="info">
-        ${session.language==='swe'?info.Swedish:info.English}
+        <div innerhtml="${session.language==='swe'?info.Swedish:info.English}"></div>
         <br/>
         <template if.bind="!edit">${session.language==='swe'?'Om du redan anmält dig så kan du ':'If you already registered, you can '}
           <a click.delegate="beginEdit()">${session.language==='swe'?'redigera anmälan':'edit the registration'}</a> ${session.language==='swe'?'här':'here'}.</template>

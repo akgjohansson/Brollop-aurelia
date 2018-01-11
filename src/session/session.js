@@ -7,8 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        .withBaseUrl('http://localhost:57041/')
-        //.withBaseUrl('/api/')
+        //.withBaseUrl('http://localhost:57041/')
+        .withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {
@@ -44,7 +44,6 @@ export class Session {
   }
 
   getRemainingDays() {
-    console.log('rem');
     this.http.fetch('start/remainingDays')
       .then(response => {
         return response.json();
@@ -66,8 +65,6 @@ export class Session {
     let info = {
       name, swedish, english
     };
-    console.log(info);
-    console.log(json(info));
     let output = this.http.fetch('info', { method: 'POST', body: json(info) });
     return output;
   }
@@ -99,8 +96,6 @@ export class Session {
   }
 
   sortFoodPreferences() {
-    console.log('sorting');
-    console.log(this.foodPreferences);
     let upperCaseNames = [];
     let sortedObjects = [];
     for (let i = 0; i < this.foodPreferences.length; i++) {
@@ -111,7 +106,6 @@ export class Session {
       }
     }
     let sortedList = upperCaseNames.sort();
-    console.log(sortedList);
     for (let i = 0; i < sortedList.length; i++) {
       for (let j = 0; j < this.foodPreferences.length; j++) {
         if (this.language === 'swe') {
@@ -128,12 +122,10 @@ export class Session {
       }
     }
     this.foodPreferences = sortedObjects;
-    console.log(this.foodPreferences);
   }
 
   sendForm(persons, comment) {
     let statusCode;
-    console.log(persons);
     this.http.fetch('person/registration', { method: 'post', body: json({persons, comment}) })
       .then(response => {
         statusCode = response.status;
@@ -165,11 +157,9 @@ export class Session {
   getLodgings() {
     this.http.fetch('lodging')
     .then(response => { 
-      console.log(response.status);
       return response.json();
     })
     .then(data =>{
-      console.log(data);
       this.lodgings = data;
     });
   }

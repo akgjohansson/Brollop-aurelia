@@ -62,12 +62,10 @@ export class Shell {
   }
 
   clickHamburger() {
-    console.log('opening');
     this.viewHamburger = !this.viewHamburger;
   }
 
   sideMenuItemClick(route) {
-    console.log('clicked');
     this.viewHamburger = false;
     this.session.router.navigate(route);
   }

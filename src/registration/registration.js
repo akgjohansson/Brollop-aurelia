@@ -87,7 +87,6 @@ export class Registration {
 
   addFoodPreference(person) {
     this.message = '';
-    console.log(person);
     if (person.newFoodPreference === 0) {
       person.newPref = true;
       setTimeout(() => { $('#new-pref-text').focus(); }, 10);
@@ -142,16 +141,12 @@ export class Registration {
     this.session.sortFoodPreferences();
     this.displayPersons = false;
     setTimeout(() => { this.displayPersons = true; }, 10);
-    console.log(person);
-    console.log(this.session.foodPreferences);
   }
 
   removePreferenceFromPersonList(person, food) {
     for (let i = 0; person.foodPreferences.length; i++) {
       if (person.foodPreferences[i] === food) {
-        console.log(person.foodPreferences);
         person.foodPreferences.splice(i,1);
-        console.log(person.foodPreferences);
         this.displayPersons = false;
         setTimeout(() => { this.displayPersons = true; }, 10);
         return;
@@ -196,7 +191,6 @@ export class Registration {
         }
       }
     }
-    console.log(preferenceList);
     return preferenceList;
   }
 
@@ -250,7 +244,6 @@ export class Registration {
       this.registrationPending = true;
       this.session.sendForm(persons, this.comment);
     }
-    console.log(this.message);
   }
 
   sendUpdate() {

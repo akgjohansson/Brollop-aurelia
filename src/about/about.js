@@ -21,7 +21,6 @@ export class About {
   getAboutText() {
     //this.info = '';
     //this.drawAbout = false;
-    //setTimeout(() => {this.info = this.session.getInfo('about'); console.log('passed'); console.log(this.info); this.drawAbout = true;}, 1000);
     this.info = this.session.getInfo('about');
   }
 }

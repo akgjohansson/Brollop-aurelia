@@ -9,12 +9,10 @@ export class Start {
   }
 
   activate() {
-    console.log('activate');
     this.getInfo();
   }
 
   getInfo() {
     this.info = this.session.getInfo('start');
-    console.log(this.info);
   }
 }

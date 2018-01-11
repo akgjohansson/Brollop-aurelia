@@ -15,10 +15,6 @@ export class Admin {
   }
 
   sendInfo() {
-    console.log(this.name);
-    console.log(this.swedish);
-    console.log(this.english);
-    console.log(this.session.infos);
     if (this.name && this.swedish && this.english) {
       this.session.sendInfo(this.name, this.swedish, this.english)
         .then(response => {
@@ -38,7 +34,6 @@ export class Admin {
     }
   }
   login() {
-    console.log('logging in');
     this.session.login(this.password)
       .then(response => {
         let statusCode = response.status;

@@ -10,7 +10,6 @@ export class FoodPreferences {
   }
 
   activate() {
-    console.log('activate');
     this.loadFoodPreferences();
   }
 
@@ -29,7 +28,6 @@ export class FoodPreferences {
             'Message': ''
           });
         }
-        console.log(this.foodPreferences);
       });
   }
 
