@@ -12,8 +12,17 @@ export class Admin {
     this.administrator = false;
     this.password = '';
     this.chosenInfoItem = '';
+    this.loadings = 0;
   }
 
+  attached() {
+    this.session.http.fetch('admin/loading')
+    .then(response =>{
+      return response.json();
+    }).then(data =>{
+      this.loadings = data;
+    });
+  }
   sendInfo() {
     if (this.name && this.swedish && this.english) {
       this.session.sendInfo(this.name, this.swedish, this.english)

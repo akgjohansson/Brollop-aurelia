@@ -5,5 +5,10 @@ import { Session } from 'session/session';
 export class Lodging {
   constructor(session) {
     this.session = session;
+    this.info = '';
+  }
+
+  attached() {
+    this.info = this.session.getInfo('lodging');
   }
 }

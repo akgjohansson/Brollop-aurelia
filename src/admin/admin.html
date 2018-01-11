@@ -41,8 +41,15 @@
         <option repeat.for="infoItem of session.infos">${infoItem.Name}</option>
       </select>
     </div>
-    <div class.bind="adminClass">
-      För radbrytning, lägg in &lt;br/&gt;. För fet text, lägg in &lt;b&gt;text&lt;/b&gt;
+    <div class="row" if.bind="administrator">
+      <div class.bind="adminClass">
+        För radbrytning, lägg in &lt;br/&gt;. För fet text, lägg in &lt;b&gt;text&lt;/b&gt;
+      </div>
+    </div>
+    <div class="row" if.bind="administrator && loadings">
+      <div class.bind="adminClass">
+        Antal laddningar av sida: ${loadings}
+      </div>
     </div>
   </div>
 </template>
