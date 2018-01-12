@@ -7,8 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        //.withBaseUrl('http://localhost:57041/')
-        .withBaseUrl('/api/')
+        .withBaseUrl('http://localhost:57041/')
+        //.withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {
@@ -126,7 +126,7 @@ export class Session {
 
   sendForm(persons, comment) {
     let statusCode;
-    this.http.fetch('person/registration', { method: 'post', body: json({persons, comment}) })
+    this.http.fetch('person/registration', { method: 'post', body: json({ persons, comment }) })
       .then(response => {
         statusCode = response.status;
         if (statusCode === 200) {
@@ -139,15 +139,15 @@ export class Session {
 
   sendUpdate(persons, comment, companyId) {
     let statusCode;
-    this.http.fetch(`person/registration/${companyId}`, {method: 'put', body: json({persons, comment})})
-    .then(response =>{
-      statusCode = response.status;
-      if (statusCode === 200) {
-        this.registrationReceived = true;
-      } else {
-        this.registrationFailure = true;
-      }
-    });
+    this.http.fetch(`person/registration/${companyId}`, { method: 'put', body: json({ persons, comment }) })
+      .then(response => {
+        statusCode = response.status;
+        if (statusCode === 200) {
+          this.registrationReceived = true;
+        } else {
+          this.registrationFailure = true;
+        }
+      });
   }
 
   login(password) {
@@ -156,11 +156,33 @@ export class Session {
 
   getLodgings() {
     this.http.fetch('lodging')
-    .then(response => { 
-      return response.json();
-    })
-    .then(data =>{
-      this.lodgings = data;
-    });
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.lodgings = data;
+      });
+  }
+
+  generateFoodPreferenceList(foodPreferences) {
+    let preferenceList = '';
+    let count = foodPreferences.length - 1;
+    for (let i = 0; i < count; i++) {
+      if (this.language === 'swe') {
+        preferenceList += foodPreferences[i].SwedishName;
+      } else {
+        preferenceList += foodPreferences[i].EnglishName;
+      }
+      if (i < count - 1) {
+        preferenceList += ', ';
+      } else if (i === (count - 1)) {
+        if (this.language === 'swe') {
+          preferenceList += ' och ';
+        } else {
+          preferenceList += ', and ';
+        }
+      }
+    }
+    return preferenceList;
   }
 }

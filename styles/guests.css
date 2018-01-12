@@ -1,0 +1,16 @@
+.company {
+  border-style: dotted;
+  border-color: black;
+  border-width: 2px;
+}
+
+#guest-table {
+  width: 100%;
+  position: relative;
+  top:20px;
+  margin-top:20px;
+}
+
+#guest-table tr {
+  padding: 10px;
+}

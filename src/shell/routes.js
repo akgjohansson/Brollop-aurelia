@@ -46,5 +46,10 @@ export default [
     name: 'food-preferences',
     route: 'food-preferences',
     moduleId: 'food-preferences/food-preferences'
+  },
+  {
+    name: 'guests',
+    route: 'guests',
+    moduleId: 'guests/guests'
   }
 ];

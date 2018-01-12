@@ -1,0 +1,28 @@
+<template>
+  <div class="row" if.bind="guestList">
+    <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+      <table id="guest-table">
+        <tr>
+          <th>Namn</th>
+          <th>Matpreferenser</th>
+          <th>Kommer</th>
+        </tr>
+        <template class="company" repeat.for="company of guestList">
+          <template repeat.for="person of company.Persons">
+            <tr>
+              <td>${person.FirstName} ${person.LastName}</td>
+              <td>${session.generateFoodPreferenceList(person.FoodPreferences)}</td>
+              <td>${person.Going?'Ja':'Nej'}</td>
+            </tr>
+          </template>
+          <tr>
+            <td>Kommentar</td>
+            <td colspan="2">${company.Comment}</td>
+          </tr>
+
+          <hr/>
+        </template>
+      </table>
+    </div>
+  </div>
+</template>
