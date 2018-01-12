@@ -7,8 +7,8 @@ export class Session {
   constructor(http, router) {
     http.configure(config => {
       config
-        .withBaseUrl('http://localhost:57041/')
-        //.withBaseUrl('/api/')
+        //.withBaseUrl('http://localhost:57041/')
+        .withBaseUrl('/api/')
         .withDefaults({
           mode: 'cors',
           headers: {
@@ -166,16 +166,16 @@ export class Session {
 
   generateFoodPreferenceList(foodPreferences) {
     let preferenceList = '';
-    let count = foodPreferences.length - 1;
+    let count = foodPreferences.length;
     for (let i = 0; i < count; i++) {
       if (this.language === 'swe') {
         preferenceList += foodPreferences[i].SwedishName;
       } else {
         preferenceList += foodPreferences[i].EnglishName;
       }
-      if (i < count - 1) {
+      if (i < count - 2) {
         preferenceList += ', ';
-      } else if (i === (count - 1)) {
+      } else if (i === (count - 2)) {
         if (this.language === 'swe') {
           preferenceList += ' och ';
         } else {
