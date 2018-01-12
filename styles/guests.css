@@ -5,12 +5,17 @@
 }
 
 #guest-table {
-  width: 100%;
+  display:table;
   position: relative;
+  width: 100%;
   top:20px;
   margin-top:20px;
 }
 
 #guest-table tr {
+  padding: 10px;
+}
+
+.guest-menu-items {
   padding: 10px;
 }
