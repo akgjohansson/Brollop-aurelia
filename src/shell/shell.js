@@ -28,7 +28,7 @@ export class Shell {
       this.aurelia.use.instance(Session, this.session);
     }
     this.setRouterViewSize();
-
+    this.routerViewInterval = setInterval(() => {this.postLoadRouterViewConfigurator();}, 1000);
     PLATFORM.global.addEventListener('resize', this.resize);
   }
 
@@ -49,6 +49,11 @@ export class Shell {
     } catch (error) {
       setTimeout(() => { this.setRouterViewSize(); }, 100);
     }
+  }
+
+  postLoadRouterViewConfigurator() {
+    this.setRouterViewSize();
+    clearInterval(this.routerViewInterval);
   }
 
   configureRouter(config, router) {
